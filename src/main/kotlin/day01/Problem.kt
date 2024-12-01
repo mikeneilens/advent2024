@@ -9,7 +9,7 @@ fun parse(data:List<String>) = Pair(
     data.map{it.split("   ")[1].toInt()}.sorted()
     )
 
-fun Pair<List<Int>,List<Int>>.matchData(result:List<Int> = listOf()):List<Int> =
+tailrec fun Pair<List<Int>,List<Int>>.matchData(result:List<Int> = listOf()):List<Int> =
     if (first.isEmpty()) result
     else Pair(first.drop(1), second.drop(1)).matchData( result + abs(first.first() - second.first()))
 
