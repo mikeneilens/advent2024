@@ -18,16 +18,7 @@ fun partTwo(data:List<String>): Int {
     return createSimilarityScore(list1, list2).sum()
 }
 
-fun createSimilarityScore(list1: List<Int>, list2: List<Int>): List<Int> {
-    val scoreMap = createMapOfOccurrence(list1, list2)
-    return list1.map{ it * scoreMap.getValue(it) }
-}
+fun createSimilarityScore(list1: List<Int>, list2: List<Int>) = list1.map{ it * it.occurrencesIn(list2) }
 
-fun createMapOfOccurrence(list1:List<Int>, list2:List<Int>, scoreMap:MutableMap<Int, Int> = mutableMapOf()):Map<Int, Int> =
-    if (list1.isEmpty() ) scoreMap
-    else createMapOfOccurrence(list1.drop(1), list2, scoreMap).also { list1.first().updateOccurrenceIn(list2, scoreMap)}
+fun Int.occurrencesIn(list:List<Int> ) = list.count { it == this}
 
-fun Int.updateOccurrenceIn(list:List<Int>, scoreMap:MutableMap<Int, Int> = mutableMapOf() ):Int {
-    if (this !in scoreMap) scoreMap[this] = list.count { it == this}
-    return scoreMap.getValue(this)
-}
