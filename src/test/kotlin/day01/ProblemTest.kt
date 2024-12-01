@@ -32,7 +32,7 @@ class ProblemTest:WordSpec ({
     "With part two" should {
         "4 appears in second list 1 times" {
             val (_, list2) = parse(sampleData)
-            4.occurrencesIn(list2) shouldBe 1
+            4 occurrencesIn list2 shouldBe 1
         }
         "similarity score of each number in list 1 in list 2 is [3,1,0,0,3,3]" {
             val (list1, list2) = parse(sampleData)

@@ -18,7 +18,7 @@ fun partTwo(data:List<String>): Int {
     return createSimilarityScore(list1, list2).sum()
 }
 
-fun createSimilarityScore(list1: List<Int>, list2: List<Int>) = list1.map{ it * it.occurrencesIn(list2) }
+fun createSimilarityScore(list1: List<Int>, list2: List<Int>) = list1.map{ it * (it occurrencesIn list2) }
 
-fun Int.occurrencesIn(list:List<Int> ) = list.count { it == this}
+infix fun Int.occurrencesIn(list:List<Int> ) = list.count { it == this}
 
