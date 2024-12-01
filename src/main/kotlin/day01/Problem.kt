@@ -25,7 +25,9 @@ fun createSimilarityScore(list1: List<Int>, list2: List<Int>): List<Int> {
 
 fun createMapOfOccurrence(list1:List<Int>, list2:List<Int>, map:MutableMap<Int, Int> = mutableMapOf()):Map<Int, Int> =
     if (list1.isEmpty() ) map
-    else createMapOfOccurrence(list1.drop(1), list2, map).also {
-        if (list1.first() !in map) map[list1.first()] = list1.first().occurrenceIn(list2) }
+    else createMapOfOccurrence(list1.drop(1), list2, map).also { list1.first().updateOccurrenceIn(list2, map)}
 
-fun Int.occurrenceIn(list:List<Int>) = list.count { it == this}
+fun Int.updateOccurrenceIn(list:List<Int>, map:MutableMap<Int, Int> = mutableMapOf() ):Int {
+    if (this !in map) map[this] = list.count { it == this}
+    return map.getValue(this)
+}
