@@ -64,7 +64,7 @@ class ProblemTest:WordSpec ({
         "report [8,6,4,4,1] is not valid" {
             listOf(8,6,4,4,1).reportIsValid() shouldBe true
         }
-        "with sample data 4 repotrs are valid" {
+        "with sample data 4 reports are valid" {
             partTwo(sampleData) shouldBe 4
         }
         "answer for part two is 692" {
