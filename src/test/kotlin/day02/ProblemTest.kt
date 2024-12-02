@@ -45,7 +45,7 @@ class ProblemTest:WordSpec ({
     }
     "With part two" should {
         "removing one of each position from [1,2,3] gives [2,3],[1,3],[1,2]" {
-            listOf(1,2,3).removeOne() shouldBe listOf(
+            listOf(1,2,3).removeOneElement() shouldBe listOf(
                 listOf(2,3),listOf(1,3),listOf(1,2)
             )
         }
