@@ -70,5 +70,8 @@ class ProblemTest:WordSpec ({
         "answer for part two is 692" {
             partTwo(puzzleInput) shouldBe 692
         }
+        "answer for part two with PJ data is 692" {
+            partTwo(pjData) shouldBe 692
+        }
     }
 })
