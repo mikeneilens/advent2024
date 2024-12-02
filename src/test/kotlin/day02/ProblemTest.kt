@@ -44,8 +44,31 @@ class ProblemTest:WordSpec ({
         }
     }
     "With part two" should {
-        "return 0" {
-            partTwo(sampleData) shouldBe 0
+        "removing one of each position from [1,2,3] gives [2,3],[1,3],[1,2]" {
+            listOf(1,2,3).removeOne() shouldBe listOf(
+                listOf(2,3),listOf(1,3),listOf(1,2)
+            )
+        }
+        "report [7,6,4,2,1] is valid" {
+            listOf(7,6,4,2,1).reportIsValid() shouldBe true
+        }
+        "report [1,2,7,8,9] is not valid" {
+            listOf(1,2,7,8,9).reportIsValid() shouldBe false
+        }
+        "report [9,7,6,2,1] is not valid" {
+            listOf(9,7,6,2,1).reportIsValid() shouldBe false
+        }
+        "report [1,3,2,4,5] is not valid" {
+            listOf(1,3,2,4,5).reportIsValid() shouldBe true
+        }
+        "report [8,6,4,4,1] is not valid" {
+            listOf(8,6,4,4,1).reportIsValid() shouldBe true
+        }
+        "with sample data 4 repotrs are valid" {
+            partTwo(sampleData) shouldBe 4
+        }
+        "answer for part two is 692" {
+            partTwo(puzzleInput) shouldBe 692
         }
     }
 })
