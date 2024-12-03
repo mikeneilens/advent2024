@@ -14,4 +14,4 @@ fun String.toDigits() = split(",").let{ if (it.size == 2) Pair(it[0].toIntOrNull
 
 fun partTwo(data:String) =  partOne(data.removeDont())
 
-fun String.removeDont() = split("do()").map{it.split("don't()").first()}.joinToString("")
+fun String.removeDont() = split("do()").joinToString("") { it.split("don't()").first() }
