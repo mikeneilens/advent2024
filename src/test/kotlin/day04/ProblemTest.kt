@@ -2,6 +2,7 @@ package day04
 
 import io.kotest.core.spec.style.WordSpec
 import io.kotest.matchers.shouldBe
+import lib.Position
 
 class ProblemTest:WordSpec ({
     val sampleData = """
