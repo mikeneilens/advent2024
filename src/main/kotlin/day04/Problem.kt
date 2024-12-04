@@ -9,20 +9,22 @@ data class Position(val row: Int, val col: Int) {
         lineUL(length), lineUR(length),lineDL(length), lineDR(length),
         )
 
-    fun lineR(length:Int) = (0 until length).map { Position(this.row, this.col) + Position(0,1) * it }
-    fun lineL(length:Int) = (0 until length).map { Position(this.row, this.col) + Position(0,-1) * it }
-    fun lineU(length:Int) = (0 until length).map { Position(this.row, this.col) + Position(-1,0) * it }
-    fun lineD(length:Int) = (0 until length).map { Position(this.row, this.col) + Position(1,0) * it }
-    fun lineUL(length:Int) = (0 until length).map { Position(this.row, this.col) + Position(-1,-1) * it }
-    fun lineUR(length:Int) = (0 until length).map { Position(this.row, this.col) + Position(-1,1) * it }
-    fun lineDL(length:Int) = (0 until length).map { Position(this.row, this.col) + Position(1,-1) * it }
-    fun lineDR(length:Int) = (0 until length).map { Position(this.row, this.col) + Position(1,1) * it }
+    fun createLine(direction:Position, length:Int) = (0 until length).map { Position(this.row, this.col) + direction * it }
+
+    fun lineR(length:Int) =  createLine(direction = Position(0,1), length)
+    fun lineL(length:Int) =  createLine(direction = Position(0,-1), length)
+    fun lineU(length:Int) =  createLine(direction = Position(-1,0), length)
+    fun lineD(length:Int) =  createLine(direction = Position(1,0), length)
+    fun lineUL(length:Int) =  createLine(direction = Position(-1,-1), length)
+    fun lineUR(length:Int) =  createLine(direction = Position(-1,1), length)
+    fun lineDL(length:Int) =  createLine(direction = Position(1,-1), length)
+    fun lineDR(length:Int) =  createLine(direction = Position(1,1), length)
 
     fun masLines(length: Int) = listOf(
-        lineDR(length) + (this + Position(length - 1,0)).lineUR(length  ),
-        lineDR(length) + (this + Position(0,length - 1)).lineDL(length  ),
-        (this + Position(length - 1, length - 1)).lineUL(length  ) + (this + Position(length - 1,0)).lineUR(length  ) ,
-        (this + Position(length - 1, length - 1)).lineUL(length  ) + (this + Position(0,length - 1)).lineDL(length  )
+        lineDR(length) + (this + Position(length - 1,0)).lineUR(length),
+        lineDR(length) + (this + Position(0,length - 1)).lineDL(length),
+        (this + Position(length - 1, length - 1)).lineUL(length) + (this + Position(length - 1,0)).lineUR(length) ,
+        (this + Position(length - 1, length - 1)).lineUL(length) + (this + Position(0,length - 1)).lineDL(length)
     )
 }
 

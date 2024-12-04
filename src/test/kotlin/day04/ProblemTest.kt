@@ -27,7 +27,7 @@ MXMXAXMASX
             )
         }
         "words at position(9,9_ in sample are [XMAS,XMAS]" {
-            sampleData.wordsAt(Position(9,9)) shouldBe listOf("XMAS")
+            sampleData.wordsAt(Position(9,9)) shouldBe listOf("XMAS","XMAS")
         }
         "part one using sample data should be 18" {
             partOne(sampleData) shouldBe 18
