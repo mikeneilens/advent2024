@@ -43,5 +43,3 @@ fun partTwo(data:List<String>) =
 
 fun List<String>.masWordsAt(position: Position, word:String = "MASMAS") =
     position.masLines(word.length/2).map{line -> word(line)}.filter { it == word }
-
-
