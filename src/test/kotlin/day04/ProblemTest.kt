@@ -38,7 +38,7 @@ MXMXAXMASX
     }
     "With part two" should {
         "mas lines at position (1,1) are " {
-            Position(1,1).masLines(3) shouldBe listOf(
+            Position(1,1).crossedLines(3) shouldBe listOf(
                 listOf(Position(row=1, col=1), Position(row=2, col=2), Position(row=3, col=3), Position(row=3, col=1), Position(row=2, col=2), Position(row=1, col=3)),
                 listOf(Position(row=1, col=1), Position(row=2, col=2), Position(row=3, col=3), Position(row=1, col=3), Position(row=2, col=2), Position(row=3, col=1)),
                 listOf(Position(row=3, col=3), Position(row=2, col=2), Position(row=1, col=1), Position(row=3, col=1), Position(row=2, col=2), Position(row=1, col=3)),
@@ -46,7 +46,7 @@ MXMXAXMASX
                 )
         }
         "words at position(1,5) are (MASMAS)" {
-            sampleData.masWordsAt(Position(1,5)) shouldBe listOf("MASMAS")
+            sampleData.crossedWordsAt(Position(1,5)) shouldBe listOf("MASMAS")
         }
         "part two using sample data should be 9" {
             partTwo(sampleData) shouldBe 9

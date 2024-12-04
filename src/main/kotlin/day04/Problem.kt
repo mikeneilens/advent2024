@@ -20,7 +20,7 @@ data class Position(val row: Int, val col: Int) {
     fun lineDL(length:Int) =  createLine(direction = Position(1,-1), length)
     fun lineDR(length:Int) =  createLine(direction = Position(1,1), length)
 
-    fun masLines(length: Int) = listOf(
+    fun crossedLines(length: Int) = listOf(
         lineDR(length) + (this + Position(length - 1,0)).lineUR(length),
         lineDR(length) + (this + Position(0,length - 1)).lineDL(length),
         (this + Position(length - 1, length - 1)).lineUL(length) + (this + Position(length - 1,0)).lineUR(length) ,
@@ -39,7 +39,7 @@ fun List<String>.word(positions:List<Position>) = positions.map{char(it)}.joinTo
 fun List<String>.char(position: Position) = if (position.row in indices && position.col in get(position.row).indices) this[position.row][position.col] else ""
 
 fun partTwo(data:List<String>) =
-    data.flatMapIndexed{row, line -> line.indices.map{col -> data.masWordsAt(Position(row, col))}}.sumOf { it.size }
+    data.flatMapIndexed{row, line -> line.indices.map{col -> data.crossedWordsAt(Position(row, col))}}.sumOf { it.size }
 
-fun List<String>.masWordsAt(position: Position, word:String = "MASMAS") =
-    position.masLines(word.length/2).map{line -> word(line)}.filter { it == word }
+fun List<String>.crossedWordsAt(position: Position, word:String = "MASMAS") =
+    position.crossedLines(word.length/2).map{ line -> word(line)}.filter { it == word }
