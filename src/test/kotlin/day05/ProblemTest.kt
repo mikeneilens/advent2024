@@ -2,6 +2,7 @@ package day05
 
 import io.kotest.core.spec.style.WordSpec
 import io.kotest.matchers.shouldBe
+import io.kotest.matchers.shouldNotBe
 
 class ProblemTest:WordSpec ({
     val sampleRulesData = """
@@ -40,6 +41,14 @@ class ProblemTest:WordSpec ({
         "parse rules into two maps" {
             val mustBeBefore = parseToBeforeMap(sampleRulesData)
             mustBeBefore["47"] shouldBe setOf("53", "13", "61", "29")
+        }
+        "for [75,47,61,53,29] the correct order is [75,47,61,53,29]" {
+            val mustBeBefore = parseToBeforeMap(sampleRulesData)
+            listOf("75","47","61","53","29").correctOrder(mustBeBefore) shouldBe listOf("75","47","61","53","29")
+        }
+        "for [75,97,47,61,53] the correct order is not [75,97,47,61,53]" {
+            val mustBeBefore = parseToBeforeMap(sampleRulesData)
+            listOf("75","97","47","61","53").correctOrder(mustBeBefore) shouldNotBe listOf("75","97","47","61","53")
         }
         "part one with sample data is 143 " {
             partOne(sampleUpdatesData, sampleRulesData) shouldBe 143
