@@ -1,16 +1,17 @@
 package day06
 
+import lib.Direction
 import lib.Position
 
 fun partOne(data:List<String>): Int {
     val start = data.startPostion()
-    val visited = data.move(start, Position.up)
+    val visited = data.move(start, Direction.up)
     return visited.count()
 }
 
-val nextDirection = mapOf(Position.up to Position.right, Position.right to Position.down, Position.down to Position.left, Position.left to Position.up)
+val nextDirection = mapOf<Direction, Direction>(Direction.up to Direction.right, Direction.right to Direction.down, Direction.down to Direction.left, Direction.left to Direction.up)
 
-fun List<String>.move(position:Position, direction:Position, visited:MutableSet<Position> = mutableSetOf()): Set<Position> {
+fun List<String>.move(position:Position, direction:Direction, visited:MutableSet<Position> = mutableSetOf()): Set<Position> {
     visited.add(position)
     val nextSquare = char(position + direction)
     if (nextSquare.isEmpty()) return visited
@@ -28,10 +29,10 @@ fun List<String>.char(position: Position) = if (position.row in indices && posit
 fun partTwo(data:List<String>): Int {
     val start = data.startPostion()
     val obstacles = data.flatMapIndexed { row, s -> s.indices.map { col -> Position(row, col) }}.filter{data.char(it) == "." }
-    return obstacles.count{data.moveIsLoop(start, Position.up, it)}
+    return obstacles.count{data.moveIsLoop(start, Direction.up, it)}
 }
 
-fun List<String>.moveIsLoop(position:Position, direction:Position, obstruction:Position, visited:MutableSet<Pair<Position,Position>> = mutableSetOf()): Boolean {
+fun List<String>.moveIsLoop(position:Position, direction:Direction, obstruction:Position, visited:MutableSet<Pair<Position,Direction>> = mutableSetOf()): Boolean {
     if(visited.contains(Pair(position,direction))) return true
     visited.add(Pair(position,direction))
     if (char(position + direction).isEmpty()) return false
@@ -39,7 +40,7 @@ fun List<String>.moveIsLoop(position:Position, direction:Position, obstruction:P
     return moveIsLoop(position + newDirection, newDirection, obstruction, visited)
 }
 
-fun List<String>.newDirection(position:Position, direction:Position, obstruction:Position):Position =
+fun List<String>.newDirection(position:Position, direction:Direction, obstruction:Position):Direction =
     (position + direction).let{newPosition -> if (char(newPosition) == "#" || newPosition == obstruction)
         newDirection(position, nextDirection.getValue(direction),obstruction)
     else direction }

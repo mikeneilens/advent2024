@@ -1,5 +1,6 @@
 package day04
 
+import lib.Direction
 import lib.Position
 
 fun Position.lines(length: Int) = listOf(
@@ -7,16 +8,16 @@ fun Position.lines(length: Int) = listOf(
     lineUL(length), lineUR(length),lineDL(length), lineDR(length),
 )
 
-fun Position.createLine(direction:Position, length:Int) = (0 until length).map { Position(this.row, this.col) + direction * it }
+fun Position.createLine(direction:Direction, length:Int) = (0 until length).map { Position(this.row, this.col) + direction * it }
 
-fun Position.lineR(length:Int) =  createLine(direction = Position.right, length)
-fun Position.lineL(length:Int) =  createLine(direction = Position.left, length)
-fun Position.lineU(length:Int) =  createLine(direction = Position.up, length)
-fun Position.lineD(length:Int) =  createLine(direction = Position.down, length)
-fun Position.lineUL(length:Int) =  createLine(direction = Position.upLeft, length)
-fun Position.lineUR(length:Int) =  createLine(direction = Position.upRight, length)
-fun Position.lineDL(length:Int) =  createLine(direction = Position.downLeft, length)
-fun Position.lineDR(length:Int) =  createLine(direction = Position.downRight, length)
+fun Position.lineR(length:Int) =  createLine(direction = Direction.right, length)
+fun Position.lineL(length:Int) =  createLine(direction = Direction.left, length)
+fun Position.lineU(length:Int) =  createLine(direction = Direction.up, length)
+fun Position.lineD(length:Int) =  createLine(direction = Direction.down, length)
+fun Position.lineUL(length:Int) =  createLine(direction = Direction.upLeft, length)
+fun Position.lineUR(length:Int) =  createLine(direction = Direction.upRight, length)
+fun Position.lineDL(length:Int) =  createLine(direction = Direction.downLeft, length)
+fun Position.lineDR(length:Int) =  createLine(direction = Direction.downRight, length)
 
 fun partOne(data:List<String>) =
     data.flatMapIndexed{row, line -> line.indices.map{col -> data.wordsAt(Position(row, col))}}.sumOf { it.size }
