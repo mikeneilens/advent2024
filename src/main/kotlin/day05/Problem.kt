@@ -1,8 +1,7 @@
 package day05
 
 fun partOne(data:List<String>,rulesData:List<String>): Int {
-    val mustBeBefore = mutableMapOf<String, Set<String>>()
-    parseToBeforeMap(rulesData, mustBeBefore)
+    val mustBeBefore = parseToBeforeMap(rulesData)
     return data.map{it.split(",")}
         .filter { it  == it.correctOrder(mustBeBefore)}
         .sumOf { it[it.size/2].toInt() }
@@ -21,8 +20,7 @@ fun MutableMap<String,Set<String>>.addToMap(values: Pair<String, String>) {
 }
 
 fun partTwo(data:List<String>,rulesData:List<String>): Int {
-    val mustBeBefore = mutableMapOf<String, Set<String>>()
-    parseToBeforeMap(rulesData, mustBeBefore)
+    val mustBeBefore = parseToBeforeMap(rulesData)
     return data.map{it.split(",")}
         .filter { it  != it.correctOrder(mustBeBefore)}
         .map{it.correctOrder(mustBeBefore)}
