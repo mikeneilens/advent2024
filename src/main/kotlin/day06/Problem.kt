@@ -27,7 +27,7 @@ fun List<String>.char(position: Position) = if (position.row in indices && posit
 
 fun partTwo(data:List<String>): Int {
     val start = data.startPostion()
-    val obstacles = data.flatMapIndexed { row, s -> s.indices.map { col -> Position(row, col) }  }
+    val obstacles = data.flatMapIndexed { row, s -> s.indices.map { col -> Position(row, col) }}.filter{data.char(it) == "." }
     return obstacles.count{data.moveIsLoop(start, Position.up, it)}
 }
 

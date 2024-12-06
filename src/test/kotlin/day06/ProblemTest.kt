@@ -46,7 +46,6 @@ class ProblemTest:WordSpec ({
             partTwo(sampleData) shouldBe 6
         }
         "answer to part two is 1523" {
-            //1539 is wrong
             partTwo(puzzleInput) shouldBe 1523        }
     }
 })
