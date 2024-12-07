@@ -15,8 +15,7 @@ fun partOne(data:List<String>): Long {
 
 fun List<Long>.evaluate(evaluators:Map<Int, List<List<Operation>>>) =
     evaluators.getValue(size - 1).let{evaluator ->
-        evaluator.map{e -> drop(1).foldIndexed(first()){i, result, n ->
-            e.get(i)(result, n) }  }
+        evaluator.map{e -> drop(1).foldIndexed(first()){i, result, n -> e[i](result, n) } }
     }
 
 fun createEvaluators(qty:Int, operators:List<Char> = listOf('+','*'),operations:Map<Char, Operation> = day07.operations): Map<Int, List<List<Operation>>>{
@@ -36,7 +35,7 @@ fun String.parseInput() = Pair(
 
 fun buildCombinations(size:Int, options:List<Char>,output:List<List<Char>> = options.map{listOf(it)}):List<List<Char>> =
     if (size == 1) output
-    else buildCombinations(size - 1, options, options.flatMap{ option -> output.map { it -> it + option }  })
+    else buildCombinations(size - 1, options, options.flatMap{ option -> output.map { it + option }  })
 
 
 fun partTwo(data:List<String>): Long {
