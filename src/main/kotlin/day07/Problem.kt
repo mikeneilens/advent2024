@@ -34,13 +34,13 @@ fun String.parseInput() = Pair(
     split(":").first().toLong(),
     split(": ").last().split(" ").map(String::toLong))
 
-fun buildCombinations(size:Int, options:List<Char>,output:List<List<Char>> = options.map{listOf(it)}):List<List<Char>> {
-    if (size == 1) return output
-    return buildCombinations(size - 1, options, options.flatMap{ option -> output.map { it -> it + option }  })
-}
+fun buildCombinations(size:Int, options:List<Char>,output:List<List<Char>> = options.map{listOf(it)}):List<List<Char>> =
+    if (size == 1) output
+    else buildCombinations(size - 1, options, options.flatMap{ option -> output.map { it -> it + option }  })
+
 
 fun partTwo(data:List<String>): Long {
     val input = parseInput(data)
-    val evaluators = createEvaluators(input.maxOf { it.second.size}, listOf('+','*','|'))
+    val evaluators = createEvaluators(input.maxOf { it.second.size} - 1, listOf('+','*','|'))
     return input.filter { it.first in it.second.evaluate(evaluators) }.sumOf { it.first }
 }
