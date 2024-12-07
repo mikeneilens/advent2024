@@ -5,6 +5,7 @@ val operations = mapOf(
     '*' to {a:Long, b:Long -> a * b},
     '|' to {a:Long, b:Long -> "$a$b".toLong()},
     )
+typealias Operation = (Long, Long) -> Long
 
 fun partOne(data:List<String>): Long {
     val input = parseInput(data)
@@ -12,13 +13,13 @@ fun partOne(data:List<String>): Long {
     return input.filter { it.first in it.second.evaluate(evaluators) }.sumOf { it.first }
 }
 
-fun List<Long>.evaluate(evaluators:Map<Int, List<List<(Long,Long) -> Long>>>) =
+fun List<Long>.evaluate(evaluators:Map<Int, List<List<Operation>>>) =
     evaluators.getValue(size - 1).let{evaluator ->
         evaluator.map{e -> drop(1).foldIndexed(first()){i, result, n ->
             e.get(i)(result, n) }  }
     }
 
-fun createEvaluators(qty:Int, operators:List<Char> = listOf('+','*'),operations:Map<Char, (Long, Long) -> Long> = day07.operations): Map<Int, List<List<(Long, Long) -> Long>>>{
+fun createEvaluators(qty:Int, operators:List<Char> = listOf('+','*'),operations:Map<Char, Operation> = day07.operations): Map<Int, List<List<Operation>>>{
     val output = mutableMapOf<Int, List<List<(Long,Long) -> Long>>>()
     (1..qty).forEach { n ->
         output[n] = buildCombinations(n,operators).map{ combo -> combo.map{operations.getValue(it)} }
