@@ -30,7 +30,8 @@ fun createEvaluators(qty:Int, operators:List<Char> = listOf('+','*'),operations:
 fun parseInput(data:List<String>):List<Pair<Long,List<Long>>> =
     data.map(String::parseInput)
 
-fun String.parseInput() = Pair(split(":").first().toLong(),
+fun String.parseInput() = Pair(
+    split(":").first().toLong(),
     split(": ").last().split(" ").map(String::toLong))
 
 fun buildCombinations(size:Int, options:List<Char>,output:List<List<Char>> = options.map{listOf(it)}):List<List<Char>> {
