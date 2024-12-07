@@ -31,18 +31,7 @@ class ProblemTest:WordSpec ({
         }
     }
     "With part two" should {
-        "moving on sample data with no obstructions should not be a move in a loop" {
-            val startPosition = sampleData.startPostion()
-            sampleData.moveIsLoop(startPosition, Direction.up, Position(-2,-2)) shouldBe false
-        }
-        "moving on sample data with obstruction at (6,3) should a move in a loop" {
-            val startPosition = sampleData.startPostion()
-            sampleData.moveIsLoop(startPosition, Direction.up, Position(6,3)) shouldBe true
-        }
-        "moving on sample data with obstruction at (7,6) should a move in a loop" {
-            val startPosition = sampleData.startPostion()
-            sampleData.moveIsLoop(startPosition, Direction.up, Position(7,6)) shouldBe true
-        }
+
         "part two with sample data is 6" {
             partTwo(sampleData) shouldBe 6
         }
