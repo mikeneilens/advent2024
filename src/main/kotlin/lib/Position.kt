@@ -9,6 +9,8 @@ data class Position(override val row: Int, override val col: Int):Vector<Int> {
     operator fun plus(other: Vector<Int>) = Position(this.row + other.row, this.col + other.col)
     operator fun times(scalar: Int) = Position(this.row * scalar, this.col * scalar)
 
+    fun isInRange(maxRow:Int, maxCol:Int):Boolean  = row >= 0 && row <= maxRow && col >= 0 && col <= maxCol
+
     fun toPositionD() = PositionD(row.toDouble(), col.toDouble())
 }
 
