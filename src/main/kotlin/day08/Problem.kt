@@ -39,10 +39,6 @@ fun partTwo(data:List<String>) =
         .flatMap{ set -> positionsOnLine(set.toList()[0],set.toList()[1],data.lastIndex, data.first().lastIndex)}
         .toSet().size
 
-fun calculateStep(a:Position, b:Position) =
-    if (abs(b.row - a.row) > abs(b.col - a.col)) Step(1.0, (b.col - a.col).toDouble()/(b.row - a.row) )
-    else Step((b.row - a.row).toDouble()/(b.col - a.col),1.0)
-
 fun positionsOnLine(a:Position, b:Position,maxRow: Int, maxCol: Int) =
     (positionsOnLine(a, b, maxRow, maxCol, -1) + positionsOnLine(a, b, maxRow, maxCol, +1) + setOf(PositionD(a.row.toDouble(), a.col.toDouble())))
         .filter(PositionD::isExactPosition)
@@ -57,3 +53,7 @@ fun positionsOnLine(a:Position, b:Position, maxRow:Int, maxCol:Int,inc:Int):Set<
     }
     return result
 }
+
+fun calculateStep(a:Position, b:Position) =
+    if (abs(b.row - a.row) > abs(b.col - a.col)) Step(1.0, (b.col - a.col).toDouble()/(b.row - a.row) )
+    else Step((b.row - a.row).toDouble()/(b.col - a.col),1.0)
