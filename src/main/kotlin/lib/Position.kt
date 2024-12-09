@@ -11,7 +11,6 @@ data class Position(override val row: Int, override val col: Int):Vector<Int> {
 
     fun isInRange(maxRow:Int, maxCol:Int):Boolean  = row >= 0 && row <= maxRow && col >= 0 && col <= maxCol
 
-    fun toPositionD() = PositionD(row.toDouble(), col.toDouble())
 }
 
 data class Direction(override val row: Int, override val col: Int): Vector<Int> {
@@ -34,11 +33,5 @@ data class PositionD(override val row: Double, override val col: Double):Vector<
     operator fun plus(other: Vector<Double>) = PositionD(this.row + other.row, this.col + other.col)
     operator fun times(scalar: Int) = PositionD(this.row * scalar, this.col * scalar)
 
-    fun isExactPosition() = row.toInt().toDouble() == row && col.toInt().toDouble() == col
-
     fun isInRange(maxRow:Int, maxCol:Int):Boolean  = row >= 0 && row <= maxRow && col >= 0 && col <= maxCol
-}
-
-data class Step(override val row: Double, override val col: Double):Vector<Double> {
-    operator fun times(scalar: Int) = PositionD(this.row * scalar, this.col * scalar)
 }

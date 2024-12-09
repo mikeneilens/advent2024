@@ -39,20 +39,19 @@ fun partTwo(data:List<String>) =
         .toSet().size
 
 fun positionsOnLine(a:Position, b:Position,maxRow: Int, maxCol: Int) =
-    (positionsOnLine(a, b, maxRow, maxCol, -1) + positionsOnLine(a, b, maxRow, maxCol, +1) + setOf(PositionD(a.row.toDouble(), a.col.toDouble())))
-        .filter(PositionD::isExactPosition)
+    (positionsOnLine(a, b, maxRow, maxCol, -1) + positionsOnLine(a, b, maxRow, maxCol, +1) + setOf(Position(a.row, a.col)))
 
-fun positionsOnLine(a:Position, b:Position, maxRow:Int, maxCol:Int,inc:Int):Set<PositionD> {
-    val step = calculateStep(a, b)
+fun positionsOnLine(a:Position, b:Position, maxRow:Int, maxCol:Int, inc:Int):Set<Position> {
+    val step = reduceFraction( b.row - a.row, b.col - a.col )
     var i = inc
-    val result = mutableSetOf<PositionD>()
-    while ((a.toPositionD() + step * i).isInRange(maxRow, maxCol)) {
-        result.add(a.toPositionD() + step * i)
-        i+= inc
+    val result = mutableSetOf<Position>()
+    while ((a + step * i).isInRange(maxRow, maxCol) ) {
+        result.add(a + step * i)
+        i+=inc
     }
     return result
 }
 
-fun calculateStep(a:Position, b:Position) =
-    if (abs(b.row - a.row) > abs(b.col - a.col)) Step(1.0, (b.col - a.col).toDouble()/(b.row - a.row) )
-    else Step((b.row - a.row).toDouble()/(b.col - a.col),1.0)
+fun reduceFraction(x: Int, y: Int) = gcd(x,y).let{ gcd -> Position(x, y)}
+
+fun gcd(a: Int, b: Int): Int = if (b == 0)  a else gcd(b, a % b)

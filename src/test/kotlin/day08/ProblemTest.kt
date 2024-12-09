@@ -67,13 +67,13 @@ class ProblemTest:WordSpec ({
     "With part two" should {
         " positions on line" {
             positionsOnLine(  Position(2,4),Position(3,6), 12,12).toSet() shouldBe setOf(
-                PositionD(row=0.0, col=0.0),
-                PositionD(row=1.0, col=2.0),
-                PositionD(row=2.0, col=4.0),
-                PositionD(row=3.0, col=6.0),
-                PositionD(row=4.0, col=8.0),
-                PositionD(row=5.0, col=10.0),
-                PositionD(row=6.0, col=12.0))
+                Position(row=0, col=0),
+                Position(row=1, col=2),
+                Position(row=2, col=4),
+                Position(row=3, col=6),
+                Position(row=4, col=8),
+                Position(row=5, col=10),
+                Position(row=6, col=12))
         }
         "part two using sample data is 34" {
             partTwo(sampleData) shouldBe 34
