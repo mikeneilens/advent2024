@@ -8,6 +8,8 @@ interface Vector {
 data class Position(override val row: Int, override val col: Int):Vector {
     operator fun plus(other: Vector) = Position(this.row + other.row, this.col + other.col)
     operator fun times(scalar: Int) = Position(this.row * scalar, this.col * scalar)
+
+    fun toPositionD() = PositionD(row.toDouble(), col.toDouble())
 }
 
 data class Direction(override val row: Int, override val col: Int): Vector {
@@ -24,4 +26,22 @@ data class Direction(override val row: Int, override val col: Int): Vector {
         val  downLeft = down + left
         val  downRight = down + right
     }
+}
+
+interface VectorD {
+    val row: Double
+    val col: Double
+}
+
+data class PositionD(override val row: Double, override val col: Double):VectorD {
+    operator fun plus(other: VectorD) = PositionD(this.row + other.row, this.col + other.col)
+    operator fun times(scalar: Int) = PositionD(this.row * scalar, this.col * scalar)
+
+    fun isExactPosition() = row.toInt().toDouble() == row && col.toInt().toDouble() == col
+
+    fun isInRange(maxRow:Int, maxCol:Int):Boolean  = row >= 0 && row <= maxRow && col >= 0 && col <= maxCol
+}
+
+data class Step(override val row: Double, override val col: Double):VectorD {
+    operator fun times(scalar: Int) = PositionD(this.row * scalar, this.col * scalar)
 }
