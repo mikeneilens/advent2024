@@ -3,11 +3,11 @@ package day09
 sealed interface BlockType
 
 data class Block(val num:Int, val id:Int):BlockType
-object None:BlockType
+data object None:BlockType
 
 fun partOne(data:String): Long {
     val input = parse(data)
-    return input.toMutableList<BlockType>().moveBlock().filter{it is Block}.checksum()
+    return input.toMutableList().moveBlock().filterIsInstance<Block>().checksum()
 }
 
 fun List<BlockType>.checksum() = foldIndexed(0L) { i, result, block ->
@@ -51,7 +51,7 @@ data class BigNone(override val size:Int):BigBlockType
 
 fun partTwo(data:String): Long {
     val input = parse2(data)
-    return input.toMutableList<BigBlockType>().moveBlock2().toBlocks().checksum()
+    return input.toMutableList().moveBlock2().toBlocks().checksum()
 }
 
 fun List<BigBlockType>.toBlocks() = flatMap{block ->  List(block.size){if (block is BigBlock) Block(block.num,0) else None} }
@@ -68,7 +68,7 @@ fun MutableList<BigBlockType>.moveBlock2():MutableList<BigBlockType> {
     var end = lastIndex
     while (end > 0) {
         val start = indexOfFirst{ it is BigNone && it.size >= this[end].size}
-        if (start >= 0 && start < end) {
+        if (start in 0..<end) {
             val startSize = this[start].size
             val endSize  = this[end].size
             if (this[end].size < this[start].size) {
