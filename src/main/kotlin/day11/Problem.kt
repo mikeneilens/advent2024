@@ -1,6 +1,5 @@
 package day11
 
-
 fun partOne(data:String, blinks:Int = 25): Long {
     var stones=data.parseIntoMap()
     repeat(blinks){stones = stones.blink()}
