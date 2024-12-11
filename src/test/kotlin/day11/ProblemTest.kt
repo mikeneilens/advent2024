@@ -11,7 +11,7 @@ class ProblemTest:WordSpec ({
 
         "sample data blinking once becomes 1 2024 1 0 9 9 2021976" {
             val stones=sampleData.parseIntoMap()
-            val newMap = stones.blink()
+            val newMap = blink(stones)
             newMap shouldBe mapOf(0L to 1, 1L to 2, 9L to 2, 2024L to 1, 2021976L to 1 )
         }
         "splitting 2024 gives (20,24)" {
