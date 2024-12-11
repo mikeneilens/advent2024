@@ -10,11 +10,11 @@ fun partTwo(data:String): Long = partOne(data, blinks = 75)
 
 fun blink(previousMap: MutableMap<Long, Long>): MutableMap<Long, Long> =
     mutableMapOf<Long, Long>().apply{
-        previousMap.keys.forEach{ stone ->
+        previousMap.forEach{ (previousStone, previousQty) ->
             when {
-                stone == 0L ->  add(1L, previousMap.getValue(stone))
-                "$stone".length % 2 == 0  -> stone.split().map{ add(it, previousMap.getValue(stone))}
-                else -> add(stone * 2024L, previousMap.getValue(stone))
+                previousStone == 0L ->  add(1L, previousQty)
+                "$previousStone".length % 2 == 0  -> previousStone.split().map{ add(it, previousQty)}
+                else -> add(previousStone * 2024L, previousQty)
             }
         }
     }
