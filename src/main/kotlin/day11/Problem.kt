@@ -1,5 +1,7 @@
 package day11
 
+typealias StoneMap = MutableMap<Long, Long>
+
 fun partOne(data:String, blinks:Int = 25): Long {
     var stones=data.parseIntoMap()
     repeat(blinks){stones = blink(stones)}
@@ -8,21 +10,24 @@ fun partOne(data:String, blinks:Int = 25): Long {
 
 fun partTwo(data:String): Long = partOne(data, blinks = 75)
 
-fun blink(previousMap: MutableMap<Long, Long>): MutableMap<Long, Long> =
+fun blink(previousMap: StoneMap): StoneMap =
     mutableMapOf<Long, Long>().apply{
         previousMap.forEach{ (previousStone, previousQty) ->
             when {
-                previousStone == 0L ->  add(1L, previousQty)
-                "$previousStone".length % 2 == 0  -> previousStone.split().map{ add(it, previousQty)}
-                else -> add(previousStone * 2024L, previousQty)
+                previousStone == 0L -> changeToOne(previousQty)
+                "$previousStone".length % 2 == 0  -> split(previousStone, previousQty)
+                else -> multiplyBy2024(previousStone, previousQty)
             }
         }
     }
 
-fun String.parseIntoMap() =
-      mutableMapOf<Long,Long>().apply { split(" ").map{ add(it.toLong(),1L)} }
+fun StoneMap.multiplyBy2024(stone: Long, qty: Long) { add(stone * 2024L, qty) }
+fun StoneMap.changeToOne(qty: Long) { add(1L, qty) }
+fun StoneMap.split(stone: Long, qty: Long) { stone.split().map { add(it, qty) } }
 
-fun MutableMap<Long,Long>.add(stone:Long, qty:Long) {
+fun String.parseIntoMap() = mutableMapOf<Long,Long>().apply { split(" ").map{ add(it.toLong(),1L)} }
+
+fun StoneMap.add(stone:Long, qty:Long) {
     this[stone] = this.getOrDefault( stone, 0) + qty
 }
 
