@@ -1,5 +1,7 @@
 package lib
 
+import day12.getPlotsAndBoundaries
+
 interface Vector<T> {
     val row: T
     val col: T
@@ -32,6 +34,8 @@ data class Direction(override val row: Int, override val col: Int): Vector<Int> 
 fun List<String>.charAt(position: Position):String = if (position.row in indices && position.col in get(position.row).indices) this[position.row][position.col].toString() else ""
 
 fun List<String>.positionsOf(s:String) = indices.flatMap { row -> this[row].indices.map{col -> Position(row, col) }}.filter{ charAt(it) == s}
+
+fun List<String>.allPositions() = indices.flatMap { row -> this[row].indices.map{col -> Position(row, col)} }
 
 data class PositionD(override val row: Double, override val col: Double):Vector<Double> {
     operator fun plus(other: Vector<Double>) = PositionD(this.row + other.row, this.col + other.col)
