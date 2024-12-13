@@ -43,18 +43,18 @@ fun List<String>.getPlotsAndSides():List<Pair<Int, Int>> {
     return plots.map{ Pair(it.size, plotSides(it) ) }
 }
 
-fun List<String>.plotSides(plot: Set<Position>):Int {
+fun plotSides(plot: Set<Position>):Int {
     val rows = plot.rows()
     val columns = plot.columns()
-    return rows.sumOf{row -> boundary(plot, row, Direction.up)} + rows.sumOf{row -> boundary(plot, row, Direction.down)} +
-            columns.sumOf{column -> boundary(plot, column, Direction.left)} + columns.sumOf{column -> boundary(plot, column, Direction.right)}
+    return rows.sumOf{row -> sides(plot, row, Direction.up)} + rows.sumOf{ row -> sides(plot, row, Direction.down)} +
+            columns.sumOf{column -> sides(plot, column, Direction.left)} + columns.sumOf{ column -> sides(plot, column, Direction.right)}
 }
 
 fun Set<Position>.columns() =  (minOf { it.col }..maxOf { it.col }).map{col ->  (minOf { it.row }..maxOf { it.row }).map{row-> Position(row, col)}}
 fun Set<Position>.rows() =  (minOf { it.row }..maxOf { it.row }).map{row ->  (minOf { it.col }..maxOf { it.col }).map{col-> Position(row, col)}}
 
-fun List<String>.boundary(plot:Set<Position>, positions:List<Position>,direction:Direction) = positions.fold(Pair(0, false)){ output, position ->
-    if (position in plot &&  charAt(position + direction) != charAt(position))
+fun sides(plot:Set<Position>, positions:List<Position>, direction:Direction) = positions.fold(Pair(0, false)){ output, position ->
+    if (position in plot &&  (position + direction) !in plot)
         if (output.second) Pair(output.first, true) else Pair(output.first + 1, true)
     else Pair(output.first, false)
 }.first

@@ -49,11 +49,11 @@ class ProblemTest:WordSpec ({
     "With part two" should {
         "first plot in sample data has 10 sides" {
             val plot = sampleData.getPlot("R",setOf(Position(0,0)), mutableSetOf())
-            sampleData.plotSides(plot) shouldBe 10
+            plotSides(plot) shouldBe 10
         }
         "3rd plot in sample data has 22 sides" {
             val plot = sampleData.getPlot("C",setOf(Position(0,6)), mutableSetOf())
-            sampleData.plotSides(plot) shouldBe 22
+            plotSides(plot) shouldBe 22
         }
         "part two using sample data is 1206" {
             partTwo(sampleData) shouldBe 1206
