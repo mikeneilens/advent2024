@@ -7,7 +7,6 @@ fun partOne(data:List<List<String>>): Int {
 data class Game(val buttonAX:Int, val buttonAY:Int, val buttonBX:Int, val buttonBY:Int, val prizeX:Int, val prizeY:Int) {
     fun costOfPresses(aPresses:Int):Int? {
         val bPresses = ((prizeX + prizeY) - aPresses * (buttonAX + buttonAY)) / (buttonBX + buttonBY)
-        println("$this $aPresses $bPresses" )
         if (aPresses <= 100 && bPresses <= 100 && (buttonAX * aPresses + buttonBX * bPresses) == prizeX && (buttonAY * aPresses + buttonBY * bPresses) == prizeY)
             return aPresses * 3 + bPresses
         else return null
