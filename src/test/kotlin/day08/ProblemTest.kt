@@ -4,7 +4,6 @@ import io.kotest.core.spec.style.WordSpec
 import io.kotest.matchers.collections.shouldContain
 import io.kotest.matchers.shouldBe
 import lib.Position
-import lib.PositionD
 
 class ProblemTest:WordSpec ({
     val sampleData = """
