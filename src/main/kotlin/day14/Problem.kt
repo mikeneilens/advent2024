@@ -13,6 +13,7 @@ infix fun Int.modulus(other:Int) = if (this >= 0)   this % other else (other + (
 fun partOne(data:List<String>, maxWidth:Int,maxHeight:Int ): Int {
     val positions = data.parse().map{it.positionAfterMove(100, maxWidth, maxHeight)}
     val qtyPerQuadrant =  quadrants(maxWidth, maxHeight).map{ q-> positions.count{ position -> position.row in q.first && position.col in q.second}}
+    println("${qtyPerQuadrant[0]} ${qtyPerQuadrant[1]} ${qtyPerQuadrant[2]} ${qtyPerQuadrant[3]}")
     return qtyPerQuadrant.fold(1, Int::times)
 }
 
@@ -31,6 +32,10 @@ fun String.parse():Robot {
     return Robot(Position(positionInts.last(),positionInts.first()),Velocity(velocityInts.last(),velocityInts.first()))
 }
 
-fun partTwo(data:List<String>): Int {
-    return 0
+fun partTwo(data:List<String>,maxWidth:Int,maxHeight:Int): Int {
+    val robots = data.parse()
+    return (1..100000).first {move ->
+        val positions = robots.map{it.positionAfterMove(move, maxWidth, maxHeight)}
+        (positions.distinct() == positions)
+    }
 }

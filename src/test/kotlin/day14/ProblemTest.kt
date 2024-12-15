@@ -67,7 +67,7 @@ p=9,5 v=-3,-3
     }
     "With part two" should {
         "return 0" {
-            partTwo(sampleData) shouldBe 0
+            partTwo(puzzleInput, 101, 103) shouldBe 7687
         }
     }
 })
