@@ -41,12 +41,27 @@ class ProblemTest:WordSpec ({
             partOne(sampleData) shouldBe 480
         }
         "answer to part one is 39478 "{
-            partOne(puzzleInput) shouldBe 39478
+            partOne(puzzleInput) shouldBe 39748
         }
     }
     "With part two" should {
+        "when b presses is 40 a presses is 80" {
+            sampleData.parse()[0].bPresses(80) shouldBe 40
+            sampleData.parse()[0].aPresses(40) shouldBe 80
+        }
+        "valid apresses for first game in sample data is 80" {
+            sampleData.parse()[2].bPresses() shouldBe 40
+        }
+        "sample data using new approach" {
+            sampleData.parse().mapNotNull{
+                val aPresses = it.aPresses()
+                if (aPresses != null) Pair(aPresses, it.bPresses(aPresses)) else null
+            }.sumOf{it.first * 3 + it.second } shouldBe 480
+        }
         "return 0" {
-            partTwo(sampleData) shouldBe 0
+            //35916772964551 is too low
+            //72253417026448 is too low
+            partTwo(puzzleInput) shouldBe 0
         }
     }
 })
