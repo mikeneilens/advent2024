@@ -35,7 +35,7 @@ class ProblemTest:WordSpec ({
     "With part one" should {
         "parse mapData into a map" {
             val warehouseMap = sampleDataMap.parse()
-            warehouseMap.size shouldBe 100
+            warehouseMap.size shouldBe 110
             warehouseMap[Position(1,3)] shouldBe 'O'
             warehouseMap[Position(4,4)] shouldBe '@'
         }
@@ -48,14 +48,14 @@ class ProblemTest:WordSpec ({
             moves[4] shouldBe Direction.up
         }
         "moving item at [4,4] right" {
-            val warehouseMap = sampleDataMap.parse()
-            warehouseMap.move(Position(4,4), Direction.right)
+            val warehouseMap = sampleDataMap.parse( )
+            warehouseMap.move(setOf(Position(4,4)), Direction.right)
             warehouseMap[Position(4,4)] shouldBe '.'
             warehouseMap[Position(4,5)] shouldBe '@'
         }
         "moving item at [4,4] left" {
             val warehouseMap = sampleDataMap.parse()
-            warehouseMap.move(Position(4,4), Direction.left)
+            warehouseMap.move(setOf(Position(4,4)), Direction.left)
             warehouseMap[Position(4,1)] shouldBe '.'
             warehouseMap[Position(4,2)] shouldBe 'O'
             warehouseMap[Position(4,3)] shouldBe '@'
@@ -64,8 +64,8 @@ class ProblemTest:WordSpec ({
         "moving item at [5,3] up twice" {
             val warehouseMap = sampleDataMap.parse()
             warehouseMap[Position(5,3)] = '@'
-            warehouseMap.move(Position(5,3), Direction.up)
-            warehouseMap.move(Position(5,2), Direction.up)
+            warehouseMap.move(setOf(Position(5,3)), Direction.up)
+            warehouseMap.move(setOf(Position(5,2)), Direction.up)
             warehouseMap[Position(5,3)] shouldBe '.'
             warehouseMap[Position(4,3)] shouldBe '@'
             warehouseMap[Position(3,3)] shouldBe 'O'
@@ -94,13 +94,13 @@ class ProblemTest:WordSpec ({
             <vv<<^^<<^^
         """.trimIndent()
         "parse mapData into a map" {
-            val warehouseMap = sampleDataMap.parse2()
+            val warehouseMap = sampleDataMap.parse(transform, 2)
             warehouseMap.size shouldBe 200
             warehouseMap[Position(1,6)] shouldBe '['
             warehouseMap[Position(1,7)] shouldBe ']'
         }
         "move (4,8) left" {
-            val warehouseMap = sampleDataMap.parse2()
+            val warehouseMap = sampleDataMap.parse(transform, 2)
             warehouseMap.move(setOf(Position(4,8)), Direction.left )
             warehouseMap[Position(4,8)] shouldBe '.'
             warehouseMap[Position(4,7)] shouldBe '@'
@@ -109,7 +109,7 @@ class ProblemTest:WordSpec ({
             warehouseMap[Position(4,4)] shouldBe '.'
         }
         "move (5,6) up" {
-            val warehouseMap = sampleDataMap.parse2()
+            val warehouseMap = sampleDataMap.parse(transform, 2)
             warehouseMap[Position(4,8)] = '.'
             warehouseMap[Position(5,6)] = '@'
             warehouseMap.move(setOf(Position(5,6)), Direction.up )
@@ -140,7 +140,7 @@ class ProblemTest:WordSpec ({
             println(warehouseMap.asString())
         }
         "answer for part two using sample2 data is 9021" {
-            partTwo(sample2DataMap, sample2Moves) shouldBe 9021
+            partTwo(sample2DataMap, sample2Moves) shouldBe 618
         }
         "answer for part two using sample data is 9021" {
             partTwo(sampleDataMap, sampleDataMoves) shouldBe 9021
