@@ -11,7 +11,7 @@ interface Vector {
 
 data class Position(override val row: Int, override val col: Int):Vector {
     operator fun plus(other: Vector) = Position(this.row + other.row, this.col + other.col)
-
+    operator fun minus(other: Vector) = Position(this.row - other.row, this.col - other.col)
     fun isInRange(maxRow:Int, maxCol:Int):Boolean  = row >= 0 && row <= maxRow && col >= 0 && col <= maxCol
 
 }
