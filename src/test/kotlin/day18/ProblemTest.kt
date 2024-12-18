@@ -1,6 +1,7 @@
 package day18
 
 import io.kotest.core.spec.style.WordSpec
+import io.kotest.matchers.collections.shouldContain
 import io.kotest.matchers.shouldBe
 import lib.Chart
 import lib.Position
@@ -35,17 +36,12 @@ class ProblemTest:WordSpec ({
     """.trimIndent().split("\n")
 
     "With part one" should {
-        "with sample data as chart" {
-            val chart = sampleData.take(12).toChart(6,6)
-            println(chart.asString())
-            chart.asString() shouldBe """
-...#...
-..#..#.
-....#..
-...#..#
-..#..#.
-.#..#..
-#.#....""".trimIndent()
+        "with sample data as bytes" {
+            val bytes = sampleData.take(12).toBytes(6,6)
+            bytes shouldContain Position(4,5)
+            bytes shouldContain Position(2,4)
+            bytes shouldContain Position(5,4)
+            bytes shouldContain Position(0,3)
         }
 
         "part one with sample data should be 22" {
@@ -64,10 +60,3 @@ class ProblemTest:WordSpec ({
         }
     }
 })
-
-fun Chart.asString() =
-    (0..(this.keys.maxOf { it.row })).map{ row ->
-        (0..(this.keys.maxOf { it.col })).map{col ->
-            getValue(Position(row, col))
-        }.joinToString("") + "\n"
-    }.joinToString("").dropLast(1)
