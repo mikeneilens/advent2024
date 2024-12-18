@@ -9,7 +9,7 @@ fun partOne(data:List<String>, width:Int = 6, depth:Int = 6, qty:Int): Int {
     return cameFrom.routeToStart(Position(depth, width), Position(0,0)).size
 }
 
-fun createNewFrontier(frontier:Set<Position>, cameFrom:Route, bytes:Set<Position>):Set<Position> =
+fun createNewFrontier(frontier:Set<Position>, cameFrom:Route, bytes:Set<Position>) =
     frontier.flatMap {position ->
         position.neighbours(bytes).mapNotNull{ neighbour -> neighbour.addToCameFrom(position, cameFrom) }
     }.toSet()
