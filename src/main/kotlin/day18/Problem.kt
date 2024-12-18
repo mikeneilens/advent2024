@@ -9,12 +9,6 @@ fun partOne(data:List<String>, width:Int = 6, depth:Int = 6, qty:Int): Int {
     return cameFrom.routeToStart(Position(depth, width), Position(0,0)).size
 }
 
-fun List<String>.toChart(depth:Int, width:Int):Chart {
-    val positions =  map(String::toPosition)
-    return (0..depth).flatMap{row -> (0..width).map{col -> Pair(Position(row,col), if (Position(row, col) in positions) '#' else '.')}}.toMap()
-}
-fun String.toPosition() = Position(split(",")[1].toInt(),split(",")[0].toInt())
-
 fun createNewFrontier(frontier:Set<Position>, cameFrom:Route, chart:Chart):Set<Position> =
     frontier.flatMap {position ->
         position.neighbours(chart).mapNotNull{ neighbour -> neighbour.addToCameFrom(position, cameFrom) }
@@ -45,3 +39,9 @@ fun partTwo(data:List<String>, width:Int = 6, depth:Int = 6, qty:Int): String{
     }
     return data[lastQty - 1]
 }
+
+fun List<String>.toChart(depth:Int, width:Int):Chart {
+    val positions =  map(String::toPosition)
+    return (0..depth).flatMap{row -> (0..width).map{col -> Pair(Position(row,col), if (Position(row, col) in positions) '#' else '.')}}.toMap()
+}
+fun String.toPosition() = Position(split(",")[1].toInt(),split(",")[0].toInt())
