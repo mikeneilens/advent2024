@@ -14,9 +14,8 @@ fun createNewFrontier(frontier:Set<Position>, cameFrom:Route, bytes:Set<Position
         position.neighbours(bytes).mapNotNull{ neighbour -> neighbour.addToCameFrom(position, cameFrom) }
     }.toSet()
 
-fun Position.neighbours(bytes:Set<Position>)  = setOf(
-    Direction.up, Direction.down, Direction.left, Direction.right
-).map{this + it}.filter{it !in bytes}
+fun Position.neighbours(bytes:Set<Position>)  = setOf(Direction.up, Direction.down, Direction.left, Direction.right)
+    .map{this + it}.filter{it !in bytes}
 
 fun Position.addToCameFrom(originalPosition:Position, cameFrom: Route):Position? =
     if (this !in cameFrom) {
