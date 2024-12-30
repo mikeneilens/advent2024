@@ -36,13 +36,10 @@ val cache = mutableMapOf<Triple<Map<Char, Position>,Position, Char>, String>()
 fun Position.routeToTarget(target:Char, keypad:Map<Char, Position>):String {
     if (Triple(keypad, this, target) in cache) return cache.getValue(Triple(keypad, this, target))
     val targetPosition = keypad.getValue(target)
-    return (if (keypad == numericKeypad) {
+    return (
         if (this.col == 0 || this == Position(2,2) ) horizontals(targetPosition) + verticals(targetPosition) + "A"
         else verticals(targetPosition) + horizontals(targetPosition) +  "A"
-    } else {
-        if (this.row > 0) horizontals(targetPosition) + verticals(targetPosition) + "A"
-        else verticals(targetPosition) + horizontals(targetPosition) +  "A"
-    }).also { cache[Triple(keypad, this, target)] = it}
+    ).also { cache[Triple(keypad, this, target)] = it}
 }
 
 fun Position.verticals(targetPosition:Position) =

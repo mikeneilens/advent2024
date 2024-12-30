@@ -18,7 +18,7 @@ class ProblemTest:WordSpec ({
             Position(3,2).routeToTarget('7', numericKeypad) shouldBe "^^^<<A"
         }
         "way to type 379A is " {
-            Position(3,2).routeToTarget("379A", numericKeypad) shouldBe "^A^^<<A>>AvvvA"
+            Position(3,2).routeToTarget("379A", numericKeypad) shouldBe "^A<<^^A>>AvvvA"
         }
         "way to type 029A is " {
             Position(3,2).routeToTarget("029A", numericKeypad) shouldBe "<A^A^^>AvvvA"
@@ -51,7 +51,7 @@ class ProblemTest:WordSpec ({
     }
     "With part two" should {
         "return 0" {
-            partTwo(sampleData) shouldBe 0
+            partTwo(puzzleInput) shouldBe 0
         }
     }
 })
