@@ -4,11 +4,10 @@ import lib.Position
 
 fun partOne(data:List<String>): Int {
     val results = data.map{ sequence ->
-        val numericSequence = numericKeypad.getValue('A').routeToTarget(sequence, numericKeypad)
-        val robot1Sequence = directionalKeypad.getValue('A').routeToTarget(numericSequence, directionalKeypad)
-        directionalKeypad.getValue('A').routeToTarget(robot1Sequence, directionalKeypad)
+        (1..2).fold(numericKeypad.getValue('A').routeToTarget(sequence, numericKeypad)) {
+            s, _ -> directionalKeypad.getValue('A').routeToTarget(s, directionalKeypad)
+        }
     }
-    println(results.map{it.length})
     return data.map{it.removeSuffix("A").toInt()}.zip(results).map{it.first * it.second.length}.sum()
 }
 
@@ -23,7 +22,7 @@ val directionalKeypad = mapOf(
     '<' to Position(1,0), 'v' to Position(1,1),'>' to Position(1,2)
 )
 
-fun Position.routeToTarget(target:String, keypad:Map<Char, Position>, result:String = ""):String {
+tailrec fun Position.routeToTarget(target:String, keypad:Map<Char, Position>, result:String = ""):String {
     if (target.isEmpty()) return result
     else {
         val nextPosition = keypad.getValue(target.first())
@@ -32,15 +31,18 @@ fun Position.routeToTarget(target:String, keypad:Map<Char, Position>, result:Str
     }
 }
 
+val cache = mutableMapOf<Triple<Map<Char, Position>,Position, Char>, String>()
+
 fun Position.routeToTarget(target:Char, keypad:Map<Char, Position>):String {
+    if (Triple(keypad, this, target) in cache) return cache.getValue(Triple(keypad, this, target))
     val targetPosition = keypad.getValue(target)
-    return if (keypad == numericKeypad) {
+    return (if (keypad == numericKeypad) {
         if (this.col == 0 || this == Position(2,2) ) horizontals(targetPosition) + verticals(targetPosition) + "A"
         else verticals(targetPosition) + horizontals(targetPosition) +  "A"
     } else {
         if (this.row > 0) horizontals(targetPosition) + verticals(targetPosition) + "A"
         else verticals(targetPosition) + horizontals(targetPosition) +  "A"
-    }
+    }).also { cache[Triple(keypad, this, target)] = it}
 }
 
 fun Position.verticals(targetPosition:Position) =
@@ -52,5 +54,11 @@ fun Position.horizontals(targetPosition:Position) =
     else List(targetPosition.col - col){'>'}.joinToString("")
 
 fun partTwo(data:List<String>): Int {
-    return 0
+    val results = data.map{ sequence ->
+        println("sequence $sequence")
+        (1..25).fold(numericKeypad.getValue('A').routeToTarget(sequence, numericKeypad)) {
+                s, _ -> directionalKeypad.getValue('A').routeToTarget(s, directionalKeypad)
+        }
+    }
+    return data.map{it.removeSuffix("A").toInt()}.zip(results).map{it.first * it.second.length}.sum()
 }

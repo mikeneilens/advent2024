@@ -44,8 +44,8 @@ class ProblemTest:WordSpec ({
         "answer for part one using sample data is 126384" {
             partOne(sampleData) shouldBe 126384
         }
-        "answer for part one is 126384" {
-            partOne(puzzleInput) shouldBe 126384
+        "answer for part one is 203734" {
+            partOne(puzzleInput) shouldBe 203734
         }
 
     }
