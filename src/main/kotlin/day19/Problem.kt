@@ -19,8 +19,32 @@ fun matchingPatterns(design:String, patterns:Set<String>, memo:MutableMap<String
 
 fun partTwo(patterns:String, designs:List<String>): Int {
     val patterns = patterns.parsePatterns()
+    val cache2 = mutableMapOf<String, Int>()
+    designs.forEach{design -> println( "$design ${checkValidPattern(patterns, design, cache2)}")}
+    println()
+
     designs.forEach{design -> println( "$design ${matchingPatterns(design, patterns)}")}
     return designs.sumOf{ design ->
         matchingPatterns(design, patterns).count()
     }
+}
+
+fun checkValidPattern( patterns: Set<String>, sequence: String, cache2:MutableMap<String, Int>):Int {
+    if (sequence in cache2) {
+        return cache2.getValue(sequence)
+    }
+    var count = 0
+    patterns.filter{ pattern -> sequence.startsWith(pattern) }.forEach {
+        var next = sequence
+        next = sequence.removePrefix(next)
+        if (next.isEmpty()) {
+            count += 1
+        } else {
+            count += checkValidPattern(patterns, next, cache2)
+        }
+    }
+
+    cache2[sequence] = count
+    return count
+
 }
