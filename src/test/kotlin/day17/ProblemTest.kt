@@ -40,9 +40,16 @@ class ProblemTest:WordSpec ({
             val finalStatus = partOne(initialStatus, listOf(4,0))
             finalStatus.b shouldBe 44354
         }
+        "If register A contains 729, the program 0,1,5,4,3,0 would output 4,6,3,5,6,3,5,2,1,0" {
+            val initialStatus = Status(a = 729, b = 0, c = 0 , ip = 0, output = "")
+            val finalStatus = partOne(initialStatus, listOf(0,1,5,4,3,0))
+            finalStatus.output shouldBe "4,6,3,5,6,3,5,2,1,0"
+        }
 
-        "return 0" {
-            //partOne(sampleData) shouldBe 0
+        "answer for part one is 4,1,7,6,4,1,0,2,7" {
+            val initialStatus = Status(a = 64854237, b = 0, c = 0 , ip = 0, output = "")
+            val finalStatus = partOne(initialStatus, listOf(2,4,1,1,7,5,1,5,4,0,5,5,0,3,3,0))
+            finalStatus.output shouldBe "4,1,7,6,4,1,0,2,7"
         }
     }
     "With part two" should {
