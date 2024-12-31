@@ -2,9 +2,9 @@ package day21
 
 import lib.Position
 
-fun partOne(data:List<String>): Int {
+fun partOne(data:List<String>, noOfRobots:Int = 2): Int {
     val results = data.map{ sequence ->
-        (1..2).fold(numericKeypad.getValue('A').routeToTarget(sequence, numericKeypad)) {
+        (1..noOfRobots).fold(numericKeypad.getValue('A').routeToTarget(sequence, numericKeypad)) {
             s, _ -> directionalKeypad.getValue('A').routeToTarget(s, directionalKeypad)
         }
     }
@@ -48,11 +48,5 @@ fun Position.horizontals(targetPosition:Position) =
     else List(targetPosition.col - col){'>'}.joinToString("")
 
 fun partTwo(data:List<String>): Int {
-    val results = data.map{ sequence ->
-        println("sequence $sequence")
-        (1..25).fold(numericKeypad.getValue('A').routeToTarget(sequence, numericKeypad)) {
-                s, _ -> directionalKeypad.getValue('A').routeToTarget(s, directionalKeypad)
-        }
-    }
-    return data.map{it.removeSuffix("A").toInt()}.zip(results).map{it.first * it.second.length}.sum()
+    return partOne(data, noOfRobots = 25) //this won't work as the length of key inputs is too large
 }
