@@ -26,7 +26,7 @@ data class Status(val a:Long, val b:Long, val c:Long, val ip:Int, val output:Str
 
     fun cdv(operand:Int) = copy(c = (a/2.0.pow(getCombo(operand)).toLong()), ip = ip + 2)
 
-    fun process() = Status.operatorMap.getValue(instructions[ip])(instructions[ip + 1])
+    fun process() = operatorMap.getValue(instructions[ip])(instructions[ip + 1])
 
     companion object {
         val operatorMap:Map<Int, Status.(Int)->Status> = mapOf(0 to Status::adv, 1 to Status::bxl, 2 to Status::bst, 3 to Status::jnz,
