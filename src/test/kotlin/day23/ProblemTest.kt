@@ -101,6 +101,11 @@ td-yn
         }
     }
     "With part two" should {
+        "combinations of a, b and c" {
+            combination(listOf("a","b","c")) shouldBe listOf(
+                listOf(),listOf("a"),listOf("b"),listOf("a","b"),
+                listOf("c"),listOf("a","c"),listOf("b","c"),listOf("a","b","c"))
+        }
         "return 0" {
             partTwo(sampleData) shouldBe 0
         }

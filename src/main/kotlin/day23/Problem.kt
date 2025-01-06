@@ -26,6 +26,13 @@ fun Map<String, Set<String>>.matchesWith(s:String):Set<Set<String>> {
     }.map{it.toSet()}.filter{it.size > 2}.toSet()
 }
 
+fun combination(s:List<String>, result:List<List<String>> = listOf(listOf())):List<List<String>> {
+    return if (s.isEmpty()) result
+    else {
+        combination(s. drop(1), result + result.map{t -> t + s.first()})
+    }
+}
+
 fun partTwo(data:List<String>): Int {
     return 0
 }
