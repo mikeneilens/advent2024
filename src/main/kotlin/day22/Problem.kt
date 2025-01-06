@@ -18,7 +18,7 @@ fun partTwo(data:List<String>): Long {
     val numbers = data.map{it.toLong()}
     val maps = numbers.map{ it.pricesAndChanges().windowed(4, 1).createMapOfChangeSequences()}
     val uniqueSequences:Set<List<Long>> = maps.flatMap{it.keys}.toSet()
-    return uniqueSequences.maxOf{sequence -> maps.sumOf { m -> m.get(sequence)?.last()?.first ?: 0  }  }
+    return uniqueSequences.maxOf{sequence -> maps.sumOf { m -> m[sequence]?.last()?.first ?: 0  }  }
 }
 
 fun Long.pricesAndChanges(times:Int = 2000) = (1..times).fold(listOf(Pair(this, 0L))){result, _ ->
