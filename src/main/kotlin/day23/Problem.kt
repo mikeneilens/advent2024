@@ -29,8 +29,6 @@ fun Set<String>.allConnected(map:Map<String, Set<String>>) =
         other -> other == s || s in map.getValue(other)
     } }
 
-fun combinations(s:Set<String>, result:Set<Set<String>> = setOf(setOf())):Set<Set<String>> =
+tailrec fun combinations(s:Set<String>, result:Set<Set<String>> = setOf(setOf())):Set<Set<String>> =
     if (s.isEmpty()) result
     else combinations(s - s.first(), result + result.map{ t -> t + s.first()})
-
-
