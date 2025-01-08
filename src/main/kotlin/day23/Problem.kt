@@ -26,14 +26,20 @@ fun Map<String, Set<String>>.matchesWith(s:String):Set<Set<String>> {
     }.map{it.toSet()}.filter{it.size > 2}.toSet()
 }
 
-fun combination(s:List<String>, result:List<List<String>> = listOf(listOf())):List<List<String>> {
-    return if (s.isEmpty()) result
-    else {
-        combination(s. drop(1), result + result.map{t -> t + s.first()})
-    }
+fun partTwo(data:List<String>): String {
+    val keyMap = data.createMap()
+    return keyMap.flatMap { combinations(it.value + it.key).filter { combo -> combo.allConnected(keyMap) } }
+        .maxBy{ it.size }
+        .sorted().joinToString(",")
 }
 
-fun partTwo(data:List<String>): Int {
-    return 0
-}
+fun Set<String>.allConnected(map:Map<String, Set<String>>) =
+    all{s -> this.all{
+        other -> other == s || s in map.getValue(other)
+    } }
+
+fun combinations(s:Set<String>, result:Set<Set<String>> = setOf(setOf())):Set<Set<String>> =
+    if (s.isEmpty()) result
+    else combinations(s - s.first(), result + result.map{ t -> t + s.first()})
+
 

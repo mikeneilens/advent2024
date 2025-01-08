@@ -102,12 +102,23 @@ td-yn
     }
     "With part two" should {
         "combinations of a, b and c" {
-            combination(listOf("a","b","c")) shouldBe listOf(
-                listOf(),listOf("a"),listOf("b"),listOf("a","b"),
-                listOf("c"),listOf("a","c"),listOf("b","c"),listOf("a","b","c"))
+            combinations(setOf("a","b","c")) shouldBe setOf(
+                setOf(),setOf("a"),setOf("b"),setOf("a","b"),
+                setOf("c"),setOf("a","c"),setOf("b","c"),setOf("a","b","c"))
         }
-        "return 0" {
-            partTwo(sampleData) shouldBe 0
+        "co,de,ka,ta all connect" {
+            val map = sampleData.createMap()
+            setOf("co","de","ka","ta").allConnected(map) shouldBe true
+        }
+        "co,de,ka,ta,tc do not all connect" {
+            val map = sampleData.createMap()
+            setOf("co","de","ka","ta","tc").allConnected(map) shouldBe false
+        }
+        "part two with sampledata is co,ta,ka,de" {
+            partTwo(sampleData) shouldBe "co,de,ka,ta"
+        }
+        "answer to part two is" {
+            partTwo(puzzleInput) shouldBe "bd,dk,ir,ko,lk,nn,ob,pt,te,tl,uh,wj,yl"
         }
     }
 })
