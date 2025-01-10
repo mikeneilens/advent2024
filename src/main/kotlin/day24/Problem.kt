@@ -15,9 +15,7 @@ fun parseToVariables(variableData:List<String>):MutableMap<String, Boolean> {
 
 fun parseToGates(gateData:List<String>, variables: MutableMap<String, Boolean>):List<Gate> =
     gateData.map{ s->
-        val input1 = s.split(" ")[0]
-        val input2 = s.split(" ")[2]
-        val output = s.split(" ")[4]
+        val (input1, _, input2, _, output ) = s.split(" ")
         when (s.split(" ")[1]) {
             "AND" -> AndGate(input1, input2, output,variables)
             "OR" -> OrGate(input1, input2, output,variables)
@@ -44,13 +42,13 @@ interface Gate{
     fun canCompute() = input1 in variables && input2 in variables && output !in variables
 }
 class AndGate(override val input1: String, override val input2: String, override val output: String, override val variables: MutableMap<String, Boolean>):Gate {
-    override fun compute():Unit { variables[output] = if (variables.getValue(input1) && variables.getValue(input2) ) true else  false }
+    override fun compute() { variables[output] = if (variables.getValue(input1) && variables.getValue(input2) ) true else  false }
 }
 class OrGate(override val input1: String, override val input2: String, override val output: String, override val variables: MutableMap<String, Boolean>):Gate {
-    override fun compute():Unit { variables[output] = if (variables.getValue(input1) || variables.getValue(input2) ) true else  false }
+    override fun compute() { variables[output] = if (variables.getValue(input1) || variables.getValue(input2) ) true else  false }
 }
 class XOrGate(override val input1: String, override val input2: String, override val output: String, override val variables: MutableMap<String, Boolean>):Gate {
-    override fun compute():Unit { variables[output] = if ((variables.getValue(input1) || variables.getValue(input2)) && variables.getValue(input1) !=  variables.getValue(input2) ) true else  false }
+    override fun compute() { variables[output] = if ((variables.getValue(input1) || variables.getValue(input2)) && variables.getValue(input1) !=  variables.getValue(input2) ) true else  false }
 }
 
 fun partTwo(variableData:List<String>, gateData:List<String>): Int {
