@@ -9,7 +9,8 @@ interface Schematic{ val depths:List<Int> }
 data class Key(override val depths: List<Int>) :Schematic
 data class Lock(override val depths: List<Int>) :Schematic
 
-fun List<List<String>>.parse() = map(List<String>::parse).let{ Pair(it.filterIsInstance<Key>(), it.filterIsInstance<Lock>())}
+fun List<List<String>>.parse() = map(List<String>::parse)
+    .let{schematics -> Pair(schematics.filterIsInstance<Key>(), schematics.filterIsInstance<Lock>())}
 
 fun List<String>.parse():Schematic =
     first().indices.map{height(it)}.let{ depths -> if (first().all{ it == '#'}) Lock(depths) else Key(depths) }
