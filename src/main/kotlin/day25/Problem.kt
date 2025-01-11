@@ -12,7 +12,7 @@ data class Lock(override val depths: List<Int>) :Schematic
 fun List<List<String>>.parse() = map(List<String>::parse)
     .let{schematics -> Pair(schematics.filterIsInstance<Key>(), schematics.filterIsInstance<Lock>())}
 
-fun List<String>.parse():Schematic =
+fun List<String>.parse() =
     first().indices.map{height(it)}.let{ depths -> if (first().all{ it == '#'}) Lock(depths) else Key(depths) }
 
 fun List<String>.height(col:Int) = count { it[col] == '#' } - 1
