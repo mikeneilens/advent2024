@@ -2,7 +2,7 @@ package day25
 
 fun partOne(data:List<List<String>>): Int {
     val (keys,locks) = data.parse()
-    return keys.sumOf{ key -> locks.count { lock -> key.fitTogetherWith(lock) } }
+    return keys.sumOf{ key -> locks.count { lock -> key.fitsTogetherWith(lock) } }
 }
 
 interface Schematic{ val depths:List<Int> }
@@ -17,4 +17,4 @@ fun List<String>.parse() =
 
 fun List<String>.height(col:Int) = count { it[col] == '#' } - 1
 
-fun Key.fitTogetherWith(lock:Lock) = depths.mapIndexed{ i, kDepth -> kDepth + lock.depths[i]}.all{it < 6}
+fun Key.fitsTogetherWith(lock:Lock) = depths.mapIndexed{ i, kDepth -> kDepth + lock.depths[i]}.all{it < 6}
